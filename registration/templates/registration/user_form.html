@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">{{ title }}</h5>
+                </div>
+                <div class="card-body">
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" name="first_name" class="form-control" value="{{ user.first_name|default:'' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" name="last_name" class="form-control" value="{{ user.last_name|default:'' }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" value="{{ user.email|default:'' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" {% if not user %}required{% endif %} placeholder="{% if user %}Leave blank to keep current{% endif %}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Gender</label>
+                            <select name="gender" class="form-select">
+                                <option value="Male" {% if user.gender == 'Male' %}selected{% endif %}>Male</option>
+                                <option value="Female" {% if user.gender == 'Female' %}selected{% endif %}>Female</option>
+                                <option value="Other" {% if user.gender == 'Other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Profile Picture</label>
+                            <input type="file" name="profile_picture" class="form-control">
+                            {% if user.profile_picture %}
+                                <div class="mt-2">
+                                    <small class="text-muted">Current: </small>
+                                    <img src="{{ user.profile_picture.url }}" height="40" class="rounded">
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'registration:users_html' %}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-success px-4">Save User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

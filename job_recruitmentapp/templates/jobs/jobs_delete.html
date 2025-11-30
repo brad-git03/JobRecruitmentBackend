@@ -3,6 +3,28 @@
 <head>
     <meta charset="utf-8">
     <title>Delete Job</title>
+<<<<<<< HEAD
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5 text-center">
+    <div class="col-md-5 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Confirm Deletion</h5>
+            </div>
+            <div class="card-body py-5">
+                <p class="fs-5 text-muted">Are you sure you want to delete the job:</p>
+                <h3 class="fw-bold mb-4">{{ job.title }}</h3>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger px-4">Yes, Delete</button>
+                    <a href="{% url 'jobs:jobs_html' %}" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </form>
+            </div>
+=======
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -30,9 +52,14 @@
                 </form>
             </div>
 
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42
         </div>
     </div>
 </div>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42

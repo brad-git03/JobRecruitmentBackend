@@ -1,3 +1,27 @@
+<<<<<<< HEAD
+from django.contrib import admin
+from django.urls import path, include
+from . import views  # This looks for views.py in the job_recruitment folder
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    
+    # --- HOMEPAGE IS HANDLED HERE ---
+    path('', views.homepage_view, name='home_html'),
+    path('dashboard/', views.admin_dashboard_view, name='admin_dashboard'),
+
+    # --- APP LINKS ---
+    path('jobs/', include('job_recruitmentapp.urls')),
+    path('registration/', include('registration.urls')),
+    # If you created the userapp, keep this line. If not, comment it out:
+    path('candidate/', include('userapp.urls')),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
 """
 URL configuration for job_recruitment project.
 
@@ -31,3 +55,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42

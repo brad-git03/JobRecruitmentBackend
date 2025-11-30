@@ -42,12 +42,23 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'job_recruitmentapp',
     'registration',
+<<<<<<< HEAD
+    'userapp', 
+
+    # Third Party
+=======
 
     # Third-party apps
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42
     'rest_framework',
     'corsheaders',
 ]
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -127,6 +138,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+<<<<<<< HEAD
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+=======
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

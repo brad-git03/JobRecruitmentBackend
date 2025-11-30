@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pending Tasks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-4">
+
+<div class="container bg-white shadow-sm p-4 rounded col-md-8 mx-auto">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-warning">Pending HR Tasks</h2>
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Back</a>
+    </div>
+
+    <div class="list-group">
+        {% for task in tasks %}
+        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+            <div>
+                <h5 class="mb-1 fw-bold">{{ task.applicant.first_name }} {{ task.applicant.last_name }}</h5>
+                <p class="mb-0 text-muted">Applied for: <strong>{{ task.job.title }}</strong></p>
+                <small class="text-secondary">Date: {{ task.applied_at|date:"M d, Y" }}</small>
+            </div>
+            
+            <a href="{% url 'jobs:review_application' task.id %}" class="btn btn-primary">Review Application</a>
+        </div>
+        {% empty %}
+        <div class="text-center py-5">
+            <h4 class="text-muted">🎉 All Caught Up!</h4>
+            <p class="text-muted">You have no pending tasks right now.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,3 +1,133 @@
+<<<<<<< HEAD
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+# Import safely to avoid circular dependency issues
+try:
+    from .models import JobPosting, JobApplication, Interview
+    from registration.models import UserRegistration
+except ImportError:
+    pass
+
+# --- JOB CRUD ---
+def jobs_html(request):
+    jobs = JobPosting.objects.all().order_by('-id')
+    return render(request, 'jobs/job_list.html', {'jobs': jobs})
+
+def job_create_html(request):
+    if request.method == 'POST':
+        JobPosting.objects.create(
+            title=request.POST.get('title'),
+            description=request.POST.get('description'),
+            job_position=request.POST.get('position'),
+            slots=request.POST.get('slots'),
+            status=request.POST.get('status'),
+            salary=request.POST.get('salary')
+        )
+        messages.success(request, "Job created successfully.")
+        return redirect('jobs:jobs_html')
+    return render(request, 'jobs/jobs_create.html')
+
+def job_update_html(request, pk):
+    job = get_object_or_404(JobPosting, pk=pk)
+    if request.method == 'POST':
+        job.title = request.POST.get('title')
+        job.description = request.POST.get('description')
+        job.job_position = request.POST.get('job_position')
+        job.slots = request.POST.get('slots')
+        job.status = request.POST.get('status')
+        job.salary = request.POST.get('salary')
+        job.save()
+        messages.success(request, "Job updated.")
+        return redirect('jobs:jobs_html')
+    return render(request, 'jobs/jobs_update.html', {'job': job})
+
+def job_delete_html(request, pk):
+    job = get_object_or_404(JobPosting, pk=pk)
+    if request.method == 'POST':
+        job.delete()
+        messages.success(request, "Job deleted.")
+        return redirect('jobs:jobs_html')
+    return render(request, 'jobs/jobs_delete.html', {'job': job})
+
+
+# --- DASHBOARD FEATURES ---
+
+def application_list(request):
+    """View all applicants"""
+    try:
+        applications = JobApplication.objects.all().order_by('-applied_at')
+    except:
+        applications = []
+    return render(request, 'jobs/application_list.html', {'applications': applications})
+
+def pending_tasks(request):
+    """Show jobs with pending applications"""
+    try:
+        pending_apps = JobApplication.objects.filter(status='Pending')
+    except:
+        pending_apps = []
+    return render(request, 'jobs/pending_tasks.html', {'tasks': pending_apps})
+
+def system_settings(request):
+    """Simple settings page"""
+    return render(request, 'jobs/settings.html')
+
+
+# --- INTERVIEW LOGIC ---
+
+def interview_list(request):
+    try:
+        interviews = Interview.objects.filter(status='Scheduled').order_by('date_time')
+    except:
+        interviews = []
+    return render(request, 'jobs/interview_list.html', {'interviews': interviews})
+
+def interview_create(request, application_id):
+    application = get_object_or_404(JobApplication, id=application_id)
+    
+    if request.method == 'POST':
+        Interview.objects.create(
+            application=application,
+            date_time=request.POST.get('date_time'),
+            location=request.POST.get('location'),
+            notes=request.POST.get('notes')
+        )
+        
+        application.status = "Interview Scheduled"
+        application.save()
+        
+        messages.success(request, f"Interview scheduled for {application.applicant.first_name}.")
+        return redirect('jobs:interview_list')
+
+    return render(request, 'jobs/interview_form.html', {'application': application})
+
+
+# --- NEW: REVIEW APPLICATION VIEW ---
+def review_application(request, pk):
+    """
+    Detailed view of an application.
+    Allows Admin to Accept or Reject.
+    """
+    if not request.session.get('user_id'):
+        return redirect('registration:login_view')
+
+    application = get_object_or_404(JobApplication, pk=pk)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        
+        if action == 'accept':
+            application.status = 'Accepted'
+            messages.success(request, "Application Accepted.")
+        elif action == 'reject':
+            application.status = 'Rejected'
+            messages.error(request, "Application Rejected.")
+        
+        application.save()
+        return redirect('jobs:pending_tasks')
+
+    return render(request, 'jobs/application_review.html', {'application': application})
+=======
 from django.shortcuts import render
 
 # Create your views here.
@@ -161,3 +291,4 @@ def job_delete_html(request, pk):
     })
 
 
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42

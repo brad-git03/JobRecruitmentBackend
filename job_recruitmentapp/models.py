@@ -1,7 +1,10 @@
 from django.db import models
 
+<<<<<<< HEAD
+=======
 # Create your models here. 
 
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42
 class JobPosting(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -9,6 +12,37 @@ class JobPosting(models.Model):
     slots = models.IntegerField()
     status = models.CharField(max_length=50)
     salary = models.DecimalField(max_digits=10, decimal_places=2)
+<<<<<<< HEAD
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+class JobApplication(models.Model):
+    applicant = models.ForeignKey('registration.UserRegistration', on_delete=models.CASCADE)
+    job = models.ForeignKey(JobPosting, on_delete=models.CASCADE)
+    
+    # --- APPLICATION DETAILS ---
+    resume = models.FileField(upload_to='resumes/', null=True, blank=True)
+    cover_letter = models.TextField(blank=True, null=True) # New field for "Fill up something"
+    
+    status = models.CharField(max_length=50, default='Pending') 
+    applied_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.applicant.first_name} applied for {self.job.title}"
+
+class Interview(models.Model):
+    application = models.ForeignKey(JobApplication, on_delete=models.CASCADE)
+    date_time = models.DateTimeField()
+    location = models.CharField(max_length=200)
+    notes = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=50, default='Scheduled')
+
+    def __str__(self):
+        return f"Interview: {self.application.applicant.first_name}"
+=======
+
+    def __str__(self):
+        return self.title
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42

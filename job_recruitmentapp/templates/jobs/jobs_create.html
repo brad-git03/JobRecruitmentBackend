@@ -3,6 +3,63 @@
 <head>
     <meta charset="utf-8">
     <title>Create Job</title>
+<<<<<<< HEAD
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Create New Job</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Job Title</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Position</label>
+                            <input type="text" name="position" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Description</label>
+                        <textarea name="description" class="form-control" rows="4" required></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Slots</label>
+                            <input type="number" name="slots" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Salary</label>
+                            <input type="number" name="salary" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Status</label>
+                            <select name="status" class="form-select">
+                                <option value="Open">Open</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="{% url 'jobs:jobs_html' %}" class="btn btn-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4">Create Job</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+=======
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -72,8 +129,13 @@
             </div>
         </div>
 
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42
     </div>
 </div>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 02cfd2272afaecbf5b9240bcb4de7a4c76483c42
